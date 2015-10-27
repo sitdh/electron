@@ -1,30 +1,19 @@
-# Quick Start
+# เริ่มต้นแบบรวดเร็ว 
 
-Electron enables you to create desktop applications with pure JavaScript by
-providing a runtime with rich native (operating system) APIs. You could see it
-as a variant of the Node.js runtime that is focused on desktop applications
-instead of web servers.
+Electron (อิเล็กทรอน) ช่วยให้คุณสร้างแอปพลิเคชันสำหรับเดสท็อปด้วยจาวาสคริปต์ (JavaScript) ด้ วยการจัดเตรียมรันไทม์พร้อมกับ API ที่เหมาะสมกับระบบปฎิบัติการ (Operating System) เห็นได้จากการเปลี่ยนแปลงรันไทม์ของ Node.js ที่จับจ้องไปยังแอปพลิเคชันบนเดสท็อปแทนที่จะเป็นเว็บไซต์
 
-This doesn't mean Electron is a JavaScript binding to graphical user interface
-(GUI) libraries. Instead, Electron uses web pages as its GUI, so you could also
-see it as a minimal Chromium browser, controlled by JavaScript.
+นั่นไม่ได้หมายความว่า Electron คือไลบรารี่สำหรับจาวาสคริปต์ที่ผูกกับส่วนต่อประสานกราฟฟิกกับผู้ใช้ (Graphical user interface - GUI) แต่จริงๆ แล้ว Electron ใช้หน้าเพจเป็นส่วนต่อประสานกราฟฟิกกับผู้ใช้ ซึ่งคุณจะมองว่าเป็นเบราว์เซอร์ Chromium ขนาดเล็กก็ได้ โดยทั้งหมดจะถูกจัดกาด้วยจาวาสคริปต์
 
-### Main Process
+### กระบวนการหลัก
 
-In Electron, the process that runs `package.json`'s `main` script is called
-__the main process__. The script that runs in the main process can display a GUI
-by creating web pages.
+ใน Electron กระบวนการ (Process) ที่ระบุไว้ใน `main` ของ `package.json` นั้นจะเรียกว่า __กระบวนการหลัก (the main process)__ โดยที่สคริปต์ที่ทำงานในกระบวนการหลักนั้นสามารถแสดงส่วนต่อประสานกราฟฟิกกับผู้ใช้ด้วยการสร้างหน้าเพจขึ้นมา
 
-### Renderer Process
+### กระบวนการวาดหน้าจอ (Renderer Process)
 
-Since Electron uses Chromium for displaying web pages, Chromium's
-multi-process architecture is also used. Each web page in Electron runs in
-its own process, which is called __the renderer process__.
+จากที่ Electron ใช้ Chromium เพื่อแสดงผลหน้าเพจ ซึ่งสถาปัตยกรรมแบบหลายขั้นตอน (Multi-process architecture) ก็ถูกใช้ด้วย โดยแต่ละเพจของ Electron นั้นจะทำงานด้วยกระบวนการของตัวเอง ซึ่งเรียกว่า __กระบวนการวาดหน้าจอ (the renderer process)__
 
-In normal browsers, web pages usually run in a sandboxed environment and are not
-allowed access to native resources. Electron users, however, have the power to
-use Node.js APIs in web pages allowing lower level operating system
-interactions.
+เบราว์เซอร์ทั่วไป หน้าเพจมักจะทำงานอยู่ภายในสภาพแวดล้อมบนกระบะทราย (sandbox) 
+โดยปรกติของเบราว์เซอร์ทั่วไป หน้าเพจจะทำงานอยู่ภายในสภาพแวดล้อมกระบะทราย (sandbox) และไม่ได้รับอนุญาตให้เข้าถึงทรัพยากรของระบบได้ อย่างไรก็ดีผู้ใช้งาน Electron นั้นสามารถมีปฏิสัมพันธ์กับทรัพยากรระดับล่างของระบบปฏิบัติการผ่านหน้าเว็บเพจด้วย API ของ Node.js ได้
 
 ### Differences Between Main Process and Renderer Process
 
