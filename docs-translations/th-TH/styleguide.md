@@ -1,55 +1,52 @@
-# Electron Documentation Styleguide
+# รูปแบบแนวทางเอกสารของ Electron
 
-Find the appropriate section for your task: [reading Electron documentation](#reading-electron-documentation)
-or [writing Electron documentation](#writing-electron-documentation).
+หาส่วนที่เหมาะสมกับงานของคุณ: [อ่านเอกสาร Electron](#reading-electron-documentation)
+หรือ [เขียนเอกสาร Electron](#writing-electron-documentation)
 
-## Writing Electron Documentation
+## การเขียนเอกสาร Electron
 
-These are the ways that we construct the Electron documentation.
+มีหลายแนวทางที่เราใช้สร้างเอกสาร Electron
 
-- Maximum one `h1` title per page.
-- Use `bash` instead of `cmd` in code blocks (because of syntax highlighter).
-- Doc `h1` titles should match object name (i.e. `browser-window` →
-  `BrowserWindow`).
-  - Hyphen separated filenames, however, are fine.
-- No headers following headers, add at least a one-sentence description.
-- Methods headers are wrapped in `code` ticks.
-- Event headers are wrapped in single 'quotation' marks.
-- No nesting lists more than 2 levels (unfortunately because of markdown
-  renderer).
-- Add section titles: Events, Class Methods and Instance Methods.
-- Use 'will' over 'would' when describing outcomes.
-- Events and methods are `h3` headers.
-- Optional arguments written as `function (required[, optional])`.
-- Optional arguments are denoted when called out in list.
-- Line length is 80-column wrapped.
-- Platform specific methods are noted in italics following method header.
+- มีหัวเรื่องที่ใช้ `h1` ได้เพียงตำแหน่งเดียวในหน้าเพจ
+- ใช้ในกลุ่มของโค้ด `bash` แทน `cmd` (เพราะการเน้นสีไวยากรณ์)
+- หัวเรื่องที่ใช้ `h1` ของเอกสารต้องตรงกับชื่อออบเจค (ตัวอย่างเช่น `browser-window` →
+  `BrowserWindow`)
+  - อย่างไรก็ดี ใช้ขีดกลางแยกชื่อไฟล์
+- ไม่ควรใส่หัวเรื่อง ตามด้วยหัวเรื่องเลยทันที ใส่คำอธิบายอย่างน้อย 1-2 ประโยค
+- หัวเรื่องของเมธอดจะหุ้มด้วย `code`
+- หัวเรื่องของเหตุการณ์ (Event) จะหุ้มด้วยเครื่องหมาย 'quotation'
+- ไม่ควรใส่รายการซ้อนกันมากกว่า 2 ชั้น (เพราะเป็นข้อจำกัดของตัวแปลง markdown)
+- ใส่หัวเรื่องของส่วน: เหุตการณ์ เมธอดของคลาส (Class Methods)
+  และ มธอดของอินสแตนซ์ (Instance Methods)
+- ใช้ 'จะ' แทน 'น่าจะ' ในกรณีการอธิบายผลลัพธ์
+- เหตุการณ์ และเมธอดจะใช้หัวเรื่องเป็น `h3`
+- ค่าที่ต้องใส่ให้กับการดำเนินงาน (Optional arguments) จะเขียนอยู่ในรูปของ
+  `function (required[, optional])`.
+- ค่าที่ต้องใส่ให้กับการดำเนินงานจะแสดงเมื่ออยู่ในรายกร
+- ความยาวบรรทัดจะตัดอยู่ที่ 80 ตัวอักษร
+- เมธอดที่จำเพาะเจาะจงกับแพลตฟอร์มจะหมายเหตุไว้ด้วยตัวเองตามด้วยหัวเรื่องของเมธอด
  - ```### `method(foo, bar)` _OS X_```
-- Prefer 'in the ___ process' over 'on'
+- ควรจะใส่ 'ในกระบวนการ___' แทนที่จะเป็น 'บน'
 
-### Documentation Translations
+### การแปลเอกสาร
 
-Translations of the Electron docs are located within the `docs-translations`
-directory.
+การแปลเอกสาร Electron จะวางไว้ภายในไดเรคทอรี่ `docs-translations`
 
-To add another set (or partial set):
+ใส่กลุ่มอื่นๆ (หรือส่วนของกลุ่มอื่น):
 
-- Create a subdirectory named by language abbreviation.
-- Within that subdirectory, duplicate the `docs` directory, keeping the
-  names of directories and files same.
-- Translate the files.
-- Update the `README.md` within your language directory to link to the files
-  you have translated.
-- Add a link to your translation directory on the main Electron [README](https://github.com/atom/electron#documentation-translations).
+- สร้างไดเรคทอรี่ด้านใน และตั้งชื่อตามตัวย่อของภาษา
+- ภายในำดเรคทอรี่ที่สร้างขึ้นมา ให้ทำสำเนาไดเรคทอรี่ `doc` และใช้ชื่อไฟล์และไดเรคทอรี่เดิม
+- แปลไฟล์
+- แก้เอกสาร `README.md` ที่อยู่ภายในไดเรคทอรี่ภาษาของคุณเพื่อเชื่อมโยงไปยังไฟล์ที่คุณแปลแล้ว
+- เพิ่มลิงก์ไปยังไดเรคทอรี่การแปลของคุณไปยังเอกสาร [README](https://github.com/atom/electron#documentation-translations) หลักของ Electron
 
-## Reading Electron Documentation
+## อ่านเอกสาร Electron
 
-Here are some tips for understanding Electron documentation syntax.
+นี่คือข้อแนะนำบางส่วนที่จะช่วยให้เข้าใจการใช้งานเอกสาร Electron
 
-### Methods
+### เมธอด (Methods)
 
-An example of [method](https://developer.mozilla.org/en-US/docs/Glossary/Method)
-documentation:
+ตัวอย่างของเอกสาร [method](https://developer.mozilla.org/en-US/docs/Glossary/Method):
 
 ---
 
@@ -60,22 +57,19 @@ documentation:
 
 ---
 
-The method name is followed by the arguments it takes. Optional arguments are
-notated by brackets surrounding the optional argument as well as the comma
-required if this optional argument follows another argument.
+ชื่อเมธอดจะตามด้วยค่าที่ค่าที่จะป้อนให้ ส่วนค่าที่ไม่จำเป็นจะระบุด้วยวงเล็บล้อมรอบค่านั้น ตลอดจนเครื่องหมายจุลภาคที่จำเป็นต้องคั่นระหว่างค่าที่ป้อนให้กับเมธอดเหล่านั้น
 
-Below the method is more detailed information on each of the arguments. The type
-of argument is notated by either the common types:
+เมธอดด้านล่างแสดงข้อมูลของค่าภายในเมธอดที่ทำเครื่องหมายในแต่ละประเภท:
+
 [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String),
 [`Number`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number),
 [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object),
 [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-or a custom type like Electron's [`webContent`](api/web-content.md).
+หรือประเภทที่กำหนดเองอย่างเช่น [`webContent`](api/web-content.md) ของ Electron
 
-### Events
+### เหตุการณ์ (Events)
 
-An example of [event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
-documentation:
+ตัวอย่างของเอกสารเหตุการณ์ [event](https://developer.mozilla.org/en-US/docs/Web/API/Event):
 
 ---
 
@@ -87,9 +81,9 @@ Returns:
 
 ---
 
-The event is a string that is used after a `.on` listener method. If it returns
-a value it and its type is noted below. If you were to listen and respond to
-this event it might look something like this:
+เหตุการณ์คือตัวอักษรที่อยู่ด้านหลังเมธอดจับเหตุการณ์ (listener method) `.on`
+หากเหตุการณ์นั้นคือค่า ประเภทของค่าเหล่านั้นจะถูกทำเครื่องหมายเอาไว้ หากคุณดักฟังและตอบสนอง
+กับเหตุการณ์นั้น จะมีลักษณะดังเช่นโค้ดด้านล่าง:
 
 ```javascript
 Alarm.on('wake-up', function(time) {
