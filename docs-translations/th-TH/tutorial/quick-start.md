@@ -25,9 +25,9 @@ Electron (อิเล็กทรอน) ช่วยให้คุณสร�
 
 ใน Electron เราได้เตรียมส่วนต่อขยาย [ipc](../api/ipc-renderer.md) สำหรับติดต่อระหว่างกระบวนการหลักและกระบวนการวาดหน้าจอ ซึ่งก็มีส่วนต่อขยาย [remote](../api/remote.md) สำหรับรูปแบบการเชื่อมต่อแบบ RPC
 
-## Write your First Electron App
+## เขียนแอปแรกบน Electron
 
-Generally, an Electron app is structured like this:
+โดยทั่วไปแล้ว แอป Electron จะมีโครงสร้างดังนี้:
 
 ```text
 your-app/
@@ -36,10 +36,7 @@ your-app/
 └── index.html
 ```
 
-The format of `package.json` is exactly the same as that of Node's modules, and
-the script specified by the `main` field is the startup script of your app,
-which will run the main process. An example of your `package.json` might look
-like this:
+รูปแบบของ `package.json` นั้นคล้ายคลึงกับส่วนต่อขยายของ Node และสคริปต์ได้ถูกระบุด้วยค่าจาก `main` ซึ่งเป็นสคริปต์เริ่มต้นสำหรับแอปของคุณ ซึ่งจะดำเนินการกระบวนการทำงานหลัก ตัวอย่างของ `package.json` จะมีลักษณะดังนี้:
 
 ```json
 {
@@ -49,97 +46,92 @@ like this:
 }
 ```
 
-__Note__: If the `main` field is not present in `package.json`, Electron will
-attempt to load an `index.js`.
+__หมายเหตุ__: ถ้าค่าของ `main` ไม่ได้ระบุอยู่ใน `package.json` Electron ลองเรียกใช้ `index.js` ขึ้นมาแทน
 
-The `main.js` should create windows and handle system events, a typical
-example being:
+`main.js` อาจะสร้างหน้าต่างและคอยจัดการกับเหตุการณ์ในระบบ ดังนี้:
 
 ```javascript
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
 
-// Report crashes to our server.
+// รายงานข้อผิดพลาดกลับไปยังเซิร์ฟเวอร์
 require('crash-reporter').start();
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+// เก็บการอ้างอิงแบบครอบคลุม (Global) นี่ไว้ในออบเจคหน้าต่าง 
+// หากไม่เก็บหน้าต่างก็จะปิดลงโดยอัตโนมัติ เมื่อออบเจคของจาวาสคริปต์โดนระบบจัดการขยะทำลาย 
 var mainWindow = null;
 
-// Quit when all windows are closed.
+// ออกเมื่อหน้าต่างทั้งหมดปิดลง
 app.on('window-all-closed', function() {
   // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+  // สำหรับ OS X จะเป็นเรื่องปกติหากแอปพลิเคชันและเมนูของแอป
+  // จะมีสถานะพร้อมใช้งานจนกว่าผู้ใช้จะกดปุ่ม Cmd + Q
   if (process.platform != 'darwin') {
     app.quit();
   }
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
+// เมธอดนี้จะถูกเรียกเมื่อ Electron สิ้นสุดการเริ่มต้น
+// และพร้อมที่จะสร้างหน้าต่างเบราว์เซอร์
 app.on('ready', function() {
-  // Create the browser window.
+  // สร้างหน้าต่างเบราว์เซอร์
   mainWindow = new BrowserWindow({width: 800, height: 600});
 
-  // and load the index.html of the app.
+  // และดึง index.html ขึ้นมาแสดงผลสำหรับแอป
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
-  // Open the DevTools.
+  // เปิด DevTools
   mainWindow.webContents.openDevTools();
 
-  // Emitted when the window is closed.
+  // เลิกใช้งานหลังจากปิดหน้าต่าง
   mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
+    // ยกเลิกการอ้างถึงของออบเจคหน้าต่าง ซึ่งคุณควรจะเก็บหน้าต่างทั้งหมดอยู่ในอาร์เรย์
+    // หากแอปของคุณสนับสนุนหลายหน้าต่าง 
+    // และนี่ก็เป็นช่วงที่คุณควรจะทำลายสมาชิกที่เกี่ยวข้องทั้งหมด
     mainWindow = null;
   });
 });
 ```
 
-Finally the `index.html` is the web page you want to show:
+และสุดท้าย `index.html` คือหน้าเพจที่เราต้องการแสดงผล:
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>สวัสดี ชาวโลก!</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using node <script>document.write(process.versions.node)</script>,
+    <h1>สวัสดี ชาวโลก!</h1>
+    พวกเรากำลังใช้โหนด <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    และ Electron <script>document.write(process.versions.electron)</script>.
   </body>
 </html>
 ```
 
-## Run your app
+## เรียกใช้งานแอป
 
-Once you've created your initial `main.js`, `index.html`, and `package.json` files,
-you'll probably want to try running your app locally to test it and make sure it's
-working as expected.
+เมื่อได้สร้างไฟล์ `main.js`, `index.html` และ `package.json` คุณก็อาจจะอยากลองเรียกใช้งานดูก่อน เพื่อให้แน่ใจว่าทุกอย่างทำงานอย่างที่คิดเอาไว้
 
 ### electron-prebuilt
 
-If you've installed `electron-prebuilt` globally with `npm`, then you will only need
-to run the following in your app's source directory:
+หากติดตั้ง `electron-prebuilt` ผ่าน `npm` แบบครอบคลุมไปแล้วเรียบร้อย ถัดไปก็เพียงแค่เรียกใช้คำสั่งด้านล่างนี้ในไดเรคทอรี่ของแอปเท่านั้น:
 
 ```bash
 electron .
 ```
 
-If you've installed it locally, then run:
+แต่ในกรณีที่ติดตั้งไว้เฉพาะส่วน จะเรียกใช้งานด้วยคำสั่ง:
 
 ```bash
 ./node_modules/.bin/electron .
 ```
 
-### Manually Downloaded Electron Binary
+### ดาวน์โหลดชุดคำสั่ง Electron ตัวตนเอง
 
-If you downloaded Electron manually, you can also use the included
-binary to execute your app directly.
+หากดาวน์โหลดชุดคำสั่ง Electron มาด้วยตนเอง คุณก็สามารถใช้ชุดคำสั่งที่มาพร้อมกันนั้น เพื่อเรียกใช้งานแอปของคุณได้ทันที
 
 #### Windows
 
@@ -159,21 +151,18 @@ $ ./electron/electron your-app/
 $ ./Electron.app/Contents/MacOS/Electron your-app/
 ```
 
-`Electron.app` here is part of the Electron's release package, you can download
-it from [here](https://github.com/atom/electron/releases).
+`Electron.app` เป็นส่วนหนึ่งของชุดโปรแกรม Electron ที่ได้ปล่อยออกมา ซึ่งคุณดาวน์โหลด `Electron.app` ได้จาก [ที่นี่](https://github.com/atom/electron/releases)
 
-### Run as a distribution
+### เรียกใช้งานในแบบชุดแจกจ่าย
 
-After you're done writing your app, you can create a distribution by
-following the [Application Distribution](./application-distribution.md) guide
-and then executing the packaged app.
+หลังจากเขียนแอปเสร็จเรียบร้อยแล้ว คุณสามารถชุดแจกจ่ายด้วยการทำตามขั้นตอนในแนวทางการสร้าง[ชุดแจกจ่ายแอปพลิเคชัน](./application-distribution.md) แล้วจึงเรียกใช้งานชุดคำสั่งของแอปที่ได้
 
-### Try this Example
+### ลองตัวอย่างนี้
 
-Clone and run the code in this tutorial by using the [`atom/electron-quick-start`](https://github.com/atom/electron-quick-start)
-repository.
 
-**Note**: Running this requires [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which includes [npm](https://npmjs.org)) on your system.
+โคลน (Clone) และเรียกใช้โค้ดในคำแนะนำโดยใช้คลังเก็บ (Repository) [`atom/electron-quick-start`](https://github.com/atom/electron-quick-start)
+
+**หมายเหตุ**: การเรียกใช้งานนี้ต้องการ [Git](https://git-scm.com) และ [Node.js](https://nodejs.org/en/download/) (ซึ่งรวมไปถึง [npm](https://npmjs.org)) บนระบบของคุณ
 
 ```bash
 # Clone the repository
