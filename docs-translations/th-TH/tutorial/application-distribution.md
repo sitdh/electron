@@ -1,11 +1,11 @@
-# Application Distribution
+# การกระจายแอปพลิเคชัน
 
-To distribute your app with Electron, the folder containing your app should be
-named `app` and placed under Electron's resources directory (on OS X it is
-`Electron.app/Contents/Resources/` and on Linux and Windows it is `resources/`),
-like this:
+การกระจายแอปของคุณด้วย Electron นั้น ก่อนอื่นไดเรคทอรี่ที่บรรจุแอปนั้นต้องตั้งชื่อ `app` เสียก่อน
+และวางไว้ภายใต้ไดเรคทอรี่ทรัพยากร (resources directory) ของ Electron (สำหรับ OS X
+จะอยู่ที่ `Electron.app/Contents/Resources/` ใน Linux และ Windows จะอยู่ที่ `resources/`)
+ดังนี้:
 
-On OS X:
+ใน OS X:
 
 ```text
 electron/Electron.app/Contents/Resources/app/
@@ -14,7 +14,7 @@ electron/Electron.app/Contents/Resources/app/
 └── index.html
 ```
 
-On Windows and Linux:
+ใน Windows และ Linux:
 
 ```text
 electron/resources/app
@@ -23,61 +23,60 @@ electron/resources/app
 └── index.html
 ```
 
-Then execute `Electron.app` (or `electron` on Linux, `electron.exe` on Windows),
-and Electron will start as your app. The `electron` directory will then be
-your distribution to deliver to final users.
+จากนั้นเรียกใช้ `Electron.app` (หรือ `electron` ใน Linux และ `electron.exe` ใน Windows),
+Electron จะเริ่มต้นการทำงานแอปของคุณ ซึ่งไดเรคทอรี่ `electron` นี้จะนำไปใช้เพื่อแจกแจ่ายให้
+กับผู้ใช้งานต่อไป
 
-## Packaging Your App into a File
+## บรรจุแอปของคุณใส่ในไฟล์
 
-Apart from shipping your app by copying all of its source files, you can also
-package your app into an [asar](https://github.com/atom/asar) archive to avoid
-exposing your app's source code to users.
+จากส่วนที่ใช้ส่งมอบแอปของคุณด้วยการคัดลอกไฟล์ทรัพยากรทั้งหมด
+นอกจากการส่งมอบแอปด้วยการคัดลอกไฟล์ทรัพยากรทั้งหมดออกไปแล้ว คุณยังสามารถบรรจุแอปของคุณ
+ใส่ไปใน [asar](https://github.com/atom/asar) เพื่อซ่อนซอร์สโค้ดจากผู้ใช้งาน
 
-To use an `asar` archive to replace the `app` folder, you need to rename the
-archive to `app.asar`, and put it under Electron's resources directory like
-below, and Electron will then try to read the archive and start from it.
+การใช้ `asar` บีบอัดข้อมูลเพื่อแทนที่โฟลเดอร์ `app` จำเป็นต้องเปลี่ยนชื่อชุดบันทึกข้อมูลเป็น `app.asr`
+และวางใส่ไว้ภายใต้ไดเรคทอรี่ทรัพย์ยากรของ Electron ดังเช่นตัวอย่างด้านล่าง และ Electron จะ
+พยายามอ่านข้อมูลชุดบันทึกข้อมูลและเริ่มต้นการทำงานจะชุดข้อมูลที่ว่า
 
-On OS X:
+ใน OS X:
 
 ```text
 electron/Electron.app/Contents/Resources/
 └── app.asar
 ```
 
-On Windows and Linux:
+ใน Windows และ Linux:
 
 ```text
 electron/resources/
 └── app.asar
 ```
 
-More details can be found in [Application packaging](application-packaging.md).
+รายละเอียดเพื่อเติมศึกษาได้จาก [การบรรจุแอปพลิเคชัน](application-packaging.md)
 
-## Rebranding with Downloaded Binaries
+## การปรับอัตลักษณ์และดาวน์โหลดไบนาร่ี
 
-After bundling your app into Electron, you will want to rebrand Electron
-before distributing it to users.
+หลังจากพัฒนาแอปของคุณใน Electron เรียบร้อยแล้ว คุณอาจจะอยากเปลี่ยนอัตลักษณ์จาก Electron
+ให้เป็นไปตามที่ต้องการก่อนที่จะส่งมอบให้กับผู้ใช้งาน
 
 ### Windows
 
-You can rename `electron.exe` to any name you like, and edit its icon and other
-information with tools like [rcedit](https://github.com/atom/rcedit) or
-[ResEdit](http://www.resedit.net).
+ไฟล์ `electron.exe` นั้นสามารถเปลี่ยนชื่อได้ตามที่ต้องการ และแก้ไขไอคอนรวมถึงข้อมูลอื่นๆ
+ที่ต้องการ ด้วยเครื่องมืออย่างเช่น [rcedit](https://github.com/atom/rcedit) หรือ [ResEdit](http://www.resedit.net).
 
 ### OS X
 
-You can rename `Electron.app` to any name you want, and you also have to rename
-the `CFBundleDisplayName`, `CFBundleIdentifier` and `CFBundleName` fields in
-following files:
+`Electron.app` นั้นสามารถเปลี่ยนเป็นชื่อตามที่คุณต้องการได้ทันที่ นอกจากนั้นยังก็ให้
+เปลี่ยนค่าของ `CFBundleDisplayName`, `CFBundleIdentifier` และ `CFBundleName`
+ในไฟล์ดังต่อไปนี้:
 
 * `Electron.app/Contents/Info.plist`
 * `Electron.app/Contents/Frameworks/Electron Helper.app/Contents/Info.plist`
 
-You can also rename the helper app to avoid showing `Electron Helper` in the
-Activity Monitor, but make sure you have renamed the helper app's executable
-file's name.
+นอกจากนั้นแล้วก็ควรเปลี่ยนชื่อตัวช่วยแอป (helper app) เพื่อหลีกเลี่ยงการแสดงผล `
+Electron Helper` ในตัวตรวจสอบกิจกรร (Activity Monitor) แต่ก็ควรแน่ใจว่าได้เปลี่ยนชื่อ
+ตัวเรียกใช้งานตัวช่วยแอปด้วย
 
-The structure of a renamed app would be like:
+โครงสร้างของการเปลี่ยนชื่อเป็นดังนี้:
 
 ```
 MyApp.app/Contents
@@ -101,20 +100,19 @@ MyApp.app/Contents
 
 ### Linux
 
-You can rename the `electron` executable to any name you like.
+`electron` นั้นสามารถเปลี่ยนชื่อได้ตามที่ชื่นชอบ
 
-## Rebranding by Rebuilding Electron from Source
+## การปรับอัตลักษณ์ ด้วยการสร้าง Electron ใหม่จากแหล่งซอร์สโค้ด
 
-It is also possible to rebrand Electron by changing the product name and
-building it from source. To do this you need to modify the `atom.gyp` file and
-have a clean rebuild.
+อีกแนวทางหนึ่งในการปรับอัตลักษณ์ของ Electron คือ การเปลี่ยนชื่อผลิตภัณฑ์ และสร้างใหม่
+จากซอร์สโค้ด ซึ่งวิธีนี้จำเป็นจะต้องเปลี่ยนแปลงค่าในไฟล์ `atom.gyp` และต้องเริ่ม
+สร้างใหม่ตั้งแต่ต้นอีกครั้ง
 
 ### grunt-build-atom-shell
 
-Manually checking out Electron's code and rebuilding could be complicated, so
-a Grunt task has been created that will handle this automatically:
+ในกรณีที่ดึงซอร์สโค้ดของ Electron เพื่อสร้างใหม่ด้วยตัวเองนั้นสลับซับซ้อน จึงได้มีการสร้าง
+งานของ Grunt เอาไว้ เพื่อช่วยจัดการกระบวนการเหล่านี้โดยอัตโนมัติ:
 [grunt-build-atom-shell](https://github.com/paulcbetts/grunt-build-atom-shell).
 
-This task will automatically handle editing the `.gyp` file, building from
-source, then rebuilding your app's native Node modules to match the new
-executable name.
+ในการสร้างใหม่จากซอร์สโค้ดนั้น งานของจะคอยดูแลการแก้ไขไฟล์ `.gyp` โดยอัตโนมัติ  จากนั้น
+ก็จะสร้างส่วนต่อขยายหลักของแอปเพื่อให้ตรงกับชื่อเรียกใช้ใหม่
