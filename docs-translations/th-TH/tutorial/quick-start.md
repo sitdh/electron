@@ -181,7 +181,6 @@ $ ./Electron.app/Contents/MacOS/Electron your-app/
 
 ### ลองตัวอย่างนี้
 
-
 โคลน (Clone) และเรียกใช้โค้ดในคำแนะนำโดยใช้คลังเก็บ (Repository) [`atom/electron-quick-start`](https://github.com/atom/electron-quick-start)
 
 **หมายเหตุ**: การเรียกใช้งานนี้ต้องการ [Git](https://git-scm.com) และ [Node.js](https://nodejs.org/en/download/) (ซึ่งรวมไปถึง [npm](https://npmjs.org)) บนระบบของคุณ
